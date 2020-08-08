@@ -15,9 +15,9 @@ import os
 import math
 import select
 import sys
-import pdb
 
-bear = Manager.BEAR(port="/dev/ttyUSB0", baudrate=8000000)
+
+bear = Manager.BEAR(port="/dev/WR-UB0013", baudrate=8000000)
 m_id = 1
 
 # -----
