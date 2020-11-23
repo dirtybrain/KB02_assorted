@@ -21,11 +21,11 @@ import matplotlib.pyplot as plt
 import pdb
 
 
-bear = Manager.BEAR(port="/dev/WR-UB0013", baudrate=8000000)
+bear = Manager.BEAR(port="/dev/WR-UB02A", baudrate=8000000)
 m_id = 1
 bear.set_torque_enable((m_id, 0))
-limit_max = 8 * math.pi
-limit_min = -8 * math.pi
+limit_max = math.pi
+limit_min = -math.pi
 bear.set_limit_position_max((m_id, limit_max))
 bear.set_limit_position_min((m_id, limit_min))
 bear.set_torque_enable((m_id, 1))
@@ -42,7 +42,7 @@ bear.set_i_gain_id((m_id, 0.02))
 bear.set_d_gain_id((m_id, 0))
 
 # print(bear.get_limit_iq_max(m_id))
-bear.set_limit_iq_max((m_id, 30))
+bear.set_limit_iq_max((m_id, 50))
 print(bear.get_limit_iq_max(m_id))
 
 goal_iq = input("Enter the goal iq and press enter.")
@@ -126,11 +126,13 @@ print("Press any key to release...\n")
 while True:
     if sys.stdin in select.select([sys.stdin], [], [], 0)[0]:
         line = input()
-        limit_max = 8 * math.pi
-        limit_min = -8 * math.pi
+        limit_max = math.pi
+        limit_min = -math.pi
         bear.set_limit_position_max((m_id, limit_max))
         bear.set_limit_position_min((m_id, limit_min))
         # Disable
+        bear.set_torque_enable((m_id, 0))
+        bear.set_torque_enable((m_id, 1))
         bear.set_torque_enable((m_id, 0))
         break
 
